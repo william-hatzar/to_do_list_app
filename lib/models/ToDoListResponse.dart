@@ -2,7 +2,7 @@ class TodoItem {
   final String id;
   final String title;
   final String description;
-  late bool isCompleted = false;
+  late bool isCompleted;
   final DateTime createdAt;
   final DateTime updatedAt;
 
