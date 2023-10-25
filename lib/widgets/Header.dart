@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HeaderSection extends StatelessWidget {
+   final bool darkMode;
+
+  HeaderSection({super.key,
+    required this.darkMode
+  });
+
   @override
   Widget build(BuildContext context) {
+    String imagePath = darkMode ? "images/bg-mobile-dark.jpeg" : "images/bg-mobile-light.jpeg";
+    String svgPath = darkMode ? "images/icon-sun.svg" : "images/icon-moon.svg";
     return Stack(
       children: [
         Align(
           alignment: Alignment.topCenter,
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: Image.asset("images/bg-mobile-light.jpeg", fit: BoxFit.contain),
+            child: Image.asset(imagePath, fit: BoxFit.contain),
           ),
         ),
         Positioned(
@@ -34,7 +42,7 @@ class HeaderSection extends StatelessWidget {
           left: 320,
           child: Container(
             padding: const EdgeInsets.all(20.00),
-            child: SvgPicture.asset("images/icon-moon.svg"),
+            child: SvgPicture.asset(svgPath),
           ),
         ),
       ],

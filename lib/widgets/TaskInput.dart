@@ -6,12 +6,14 @@ class TaskInputSection extends StatelessWidget {
   final bool isChecked;
   final Function() addTaskCallback;
   final Function(bool) toggleCheckboxCallback;
+  final bool darkMode;
 
   TaskInputSection({
     required this.todoTextController,
     required this.isChecked,
     required this.addTaskCallback,
     required this.toggleCheckboxCallback,
+    required this.darkMode
   });
 
   @override
@@ -26,7 +28,7 @@ class TaskInputSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: darkMode ? const Color(0xFF25273D) : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             child: RawKeyboardListener(
@@ -46,17 +48,20 @@ class TaskInputSection extends StatelessWidget {
                     onChanged: (bool? value) {
                       toggleCheckboxCallback(value ?? false);
                     },
+                    activeColor: darkMode ? Colors.black : Colors.white,
+                    checkColor: darkMode ? Colors.white : Colors.black,// Color for the checked (true) stat// Color for the check icon
                   ),
                   // Text
                   Expanded(
                     child: TextField(
                       controller: todoTextController,
-                      decoration: const InputDecoration(
-                        hintText: 'Add a new task...',
+                      decoration: InputDecoration(
+                        hintText: 'Create a new todo...',
+                        hintStyle: darkMode ? const TextStyle(color: Colors.grey) : const TextStyle(color: Colors.black),
                         border: InputBorder.none,
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: darkMode ? Colors.white : Colors.black,
                         fontFamily: "Josefin Sans",
                         fontWeight: FontWeight.w700,
                       ),

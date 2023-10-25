@@ -66,7 +66,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - images/bg-mobile-light.jpeg
+     - images/bg-mobile-dark.jpeg
      - images/icon-moon.svg
+     - images/icon-sun.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

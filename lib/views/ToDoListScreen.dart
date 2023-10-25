@@ -19,6 +19,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   late Future<DeleteResponse> futureDeleteResponse;
   final TextEditingController _todoTextController = TextEditingController();
   bool _isChecked = false;
+  bool darkMode = true;
 
   void toggleCheckbox(bool value) {
     setState(() {
@@ -71,15 +72,16 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: darkMode ? const Color(0xFF171721) : Colors.grey[100],
       body: Stack(
         children: [
-          HeaderSection(),
+          HeaderSection(darkMode: darkMode),
           TaskInputSection(
             todoTextController: _todoTextController,
             isChecked: _isChecked,
             addTaskCallback: _addTask,
             toggleCheckboxCallback: toggleCheckbox,
+            darkMode: darkMode,
           ),
           Positioned(
             top: 135,
@@ -127,7 +129,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                       height: 60.00,
                                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: darkMode ? const Color(0xFF25273D) : Colors.white,
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(color: Colors.white),
                                       ),
@@ -140,8 +142,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                 : filteredTasks.length == 1
                                                 ? "1 item left"
                                                 : "No items added",
-                                            style: const TextStyle(
-                                              color: Colors.blueGrey,
+                                            style: TextStyle(
+                                              color: darkMode ? Colors.white : Colors.blueGrey,
                                               fontFamily: "Josefin Sans",
                                               fontWeight: FontWeight.w700,
                                             ),
@@ -169,10 +171,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                 }
                                               }
                                             },
-                                            child: const Text(
+                                            child: Text(
                                               "Clear Completed",
                                               style: TextStyle(
-                                                color: Colors.blueGrey,
+                                                color: darkMode ? Colors.white : Colors.blueGrey,
                                                 fontFamily: "Josefin Sans",
                                                 fontWeight: FontWeight.w700,
                                               ),
@@ -207,7 +209,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                           height: 60.00,
                                           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                           decoration: BoxDecoration(
-                                            color: Colors.white,
+                                            color: darkMode ? const Color(0xFF25273D) : Colors.white,
                                             borderRadius: BorderRadius.vertical(
                                               top: index == 0 ? const Radius.circular(10) : Radius.zero,
                                               bottom: index == filteredTasks.length - 1 ? const Radius.circular(10) : Radius.zero,
@@ -244,8 +246,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                               Expanded(
                                                 child: Text(
                                                   task.title,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
+                                                  style: TextStyle(
+                                                    color: darkMode ? Colors.white : Colors.black,
                                                     fontFamily: "Josefin Sans",
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -290,8 +292,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               ),
                             ),
                             FilterBox(
-                                currentFilter: _currentFilter, updateFilterCallback: updateFilter),
-                            SizedBox(height: 300)
+                                currentFilter: _currentFilter, updateFilterCallback: updateFilter, darkMode: darkMode)
                           ],
                         );
                       }
@@ -312,14 +313,15 @@ enum FilterState { all, active, completed }
 class FilterBox extends StatelessWidget {
   final FilterState currentFilter;
   final Function(FilterState) updateFilterCallback;
+  final bool darkMode;
 
-  FilterBox({required this.currentFilter, required this.updateFilterCallback});
+  FilterBox({required this.currentFilter, required this.updateFilterCallback, required this.darkMode});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: darkMode ? const Color(0xFF25273D) : Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
