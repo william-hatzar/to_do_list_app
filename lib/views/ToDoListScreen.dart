@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:to_do_list_app/models/TaskRequest.dart';
 import 'package:to_do_list_app/widgets/Header.dart';
 import 'package:to_do_list_app/widgets/TaskInput.dart';
+import 'package:to_do_list_app/state/app_state.dart';
+import 'package:provider/provider.dart';
 
 class ToDoListScreen extends StatefulWidget {
   const ToDoListScreen({Key? key}) : super(key: key);
@@ -19,7 +21,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   late Future<DeleteResponse> futureDeleteResponse;
   final TextEditingController _todoTextController = TextEditingController();
   bool _isChecked = false;
-  bool darkMode = true;
 
   void toggleCheckbox(bool value) {
     setState(() {
@@ -71,17 +72,17 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool darkMode = Provider.of<AppState>(context).darkMode;
     return Scaffold(
       backgroundColor: darkMode ? const Color(0xFF171721) : Colors.grey[100],
       body: Stack(
         children: [
-          HeaderSection(darkMode: darkMode),
+          HeaderSection(),
           TaskInputSection(
             todoTextController: _todoTextController,
             isChecked: _isChecked,
             addTaskCallback: _addTask,
-            toggleCheckboxCallback: toggleCheckbox,
-            darkMode: darkMode,
+            toggleCheckboxCallback: toggleCheckbox
           ),
           Positioned(
             top: 135,
@@ -131,7 +132,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                       decoration: BoxDecoration(
                                         color: darkMode ? const Color(0xFF25273D) : Colors.white,
                                         borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: Colors.white),
+                                        border: darkMode ? Border.all(color: const Color(0xFF25273D)) : Border.all(color: Colors.white),
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -366,7 +367,7 @@ class FilterButton extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          color: isActive ? Colors.blueGrey : Colors.grey,
+          color: isActive ? Colors.blue : Colors.grey,
           fontFamily: "Josefin Sans",
           fontWeight: FontWeight.w700,
         ),

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import "package:to_do_list_app/state/app_state.dart";
 
 class TaskInputSection extends StatelessWidget {
   final TextEditingController todoTextController;
   final bool isChecked;
   final Function() addTaskCallback;
   final Function(bool) toggleCheckboxCallback;
-  final bool darkMode;
 
-  TaskInputSection({
+  const TaskInputSection({super.key,
     required this.todoTextController,
     required this.isChecked,
     required this.addTaskCallback,
     required this.toggleCheckboxCallback,
-    required this.darkMode
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool darkMode = Provider.of<AppState>(context).darkMode;
     return Positioned(
       top: 125,
       left: 20,

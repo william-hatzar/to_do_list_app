@@ -1,15 +1,16 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../state/app_state.dart';
 
 class HeaderSection extends StatelessWidget {
-   final bool darkMode;
-
-  HeaderSection({super.key,
-    required this.darkMode
-  });
 
   @override
   Widget build(BuildContext context) {
+    final bool darkMode = Provider.of<AppState>(context).darkMode;
     String imagePath = darkMode ? "images/bg-mobile-dark.jpeg" : "images/bg-mobile-light.jpeg";
     String svgPath = darkMode ? "images/icon-sun.svg" : "images/icon-moon.svg";
     return Stack(
@@ -37,14 +38,19 @@ class HeaderSection extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: 50,
-          left: 320,
-          child: Container(
-            padding: const EdgeInsets.all(20.00),
-            child: SvgPicture.asset(svgPath),
-          ),
-        ),
+    Positioned(
+    top: 50,
+    left: 320,
+    child: GestureDetector(
+    onTap: () {
+    Provider.of<AppState>(context, listen: false).toggleDarkMode();
+    },
+    child: Container(
+    padding: const EdgeInsets.all(20.00),
+    child: SvgPicture.asset(svgPath),
+    ),
+    ),
+    )
       ],
     );
   }
