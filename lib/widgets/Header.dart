@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../state/app_state.dart';
 
 class HeaderSection extends StatelessWidget {
+  const HeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
