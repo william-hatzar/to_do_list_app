@@ -88,7 +88,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           ),
           Column(
             children: [
-              SizedBox(height: 70),
+              SizedBox(height: 80),
               const HeaderSection(),
               Expanded(
                 child: Padding(
@@ -105,7 +105,13 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                           ),
                         );
                       } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 50),
+                            Text('Failed to connect', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Josefin Sans", color: darkMode ? Colors.white : Colors.black87, fontSize: 30)),
+                          ],
+                        );
                       } else {
                         final data = snapshot.data;
                         List<TodoItem> filteredTasks = [];
@@ -130,7 +136,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               child: ReorderableListView.builder(
                                 header: Column(
                                   children: [
-                                    SizedBox(height: 20),
+                                    SizedBox(height: 10),
                                     TaskInputSection(
                                         todoTextController: _todoTextController,
                                         isChecked: _isChecked,
@@ -165,10 +171,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                 ? "${filteredTasks.length} items left"
                                                 : filteredTasks.length == 1
                                                     ? "1 item left"
-                                                    : "No items added",
+                                                    : "You have no tasks left",
                                             style: TextStyle(
                                               color: darkMode
-                                                  ? Colors.white
+                                                  ? Colors.grey
                                                   : Colors.blueGrey,
                                               fontFamily: "Josefin Sans",
                                               fontWeight: FontWeight.w700,
@@ -210,7 +216,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                               "Clear Completed",
                                               style: TextStyle(
                                                 color: darkMode
-                                                    ? Colors.white
+                                                    ? Colors.grey
                                                     : Colors.blueGrey,
                                                 fontFamily: "Josefin Sans",
                                                 fontWeight: FontWeight.w700,
@@ -359,7 +365,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                         ),
                                         if (index < filteredTasks.length - 1)
                                           Divider(
-                                            color: Colors.grey[300],
+                                            color: darkMode? Colors.black12 : Colors.grey[300],
                                             height: 0,
                                             thickness: 1,
                                           ),

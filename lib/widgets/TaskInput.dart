@@ -81,7 +81,7 @@ class _TaskInputSectionState extends State<TaskInputSection> {
                     controller: widget.todoTextController,
                     decoration: InputDecoration(
                       hintText: 'Create a new todo...',
-                      hintStyle: darkMode ? const TextStyle(color: Colors.grey) : const TextStyle(color: Colors.black),
+                      hintStyle: darkMode ? const TextStyle(color: Colors.grey) : const TextStyle(color: Colors.blueGrey),
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
